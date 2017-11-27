@@ -1,24 +1,25 @@
 package exe_1;
 
-public class Contato implements Comparable{
-	
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Contato implements Serializable {
+
 	private int telefone;
 	private int id;
 	private String nome;
 	private String email;
-	
+
 	public Contato(String nome, String email, int telefone, int id) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 	}
-	
 
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
@@ -50,26 +51,13 @@ public class Contato implements Comparable{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+		if (!(obj instanceof Contato))
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contato other = (Contato) obj;
-		if (id != other.id)
+
+		Contato contato = (Contato) obj;
+
+		if (!contato.getNome().equals(this.nome))
 			return false;
 		return true;
-	}
-
-
-	@Override
-	public int compareTo(Object arg0) {
-		Contato contato = (Contato) arg0;
-		if (contato.getId() > this.getId())
-			return 1;
-		else if (contato.getId() == this.getId())
-			return 0;
-		return -1;
 	}
 }

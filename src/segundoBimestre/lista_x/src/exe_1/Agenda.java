@@ -1,72 +1,79 @@
 package exe_1;
 
-import java.util.Arrays;
-
-public class Agenda<T> implements Runnable {
+public class Agenda<T> {
 
 	private T[] contatos;
-	private int index = 0;
+	private static Integer index = 0;
+	private static Integer idsContato;
 
 	@SuppressWarnings("unchecked")
 	public Agenda() {
-		/*
-		 * Crio o objeto do tipo mais genérico possível, após isso faço o casting para o
-		 * tipo de T
-		 */
-		contatos = (T[]) new Object[10];
+		contatos = (T[]) new Contato[10];
+		idsContato = 0;
 	}
 
 	public void add(T t) {
-//		new Thread() {
-//			public void run() {
-//				contatos[index] = t;
-//				index++;
-//			}
-//		}.start();
-		
-		contatos[index] = t;
-		index++;
-		
-//		try {
-//			Thread.sleep(10);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		System.out.println(contatos[0]);
-//		Arrays.sort(contatos);
-		System.out.println(contatos[0]);
-		int a = Arrays.binarySearch(contatos, 0);
-		
-//		System.out.println(a);
+		try {
+			// Thread sem referência, isso porque ela apenas fará a adição
+			// não realizando processos continuos (Não sendo necessário seu controle) 
+			new Thread() {
+				public void run() {
+					for (int i = 0; i < contatos.length; i++) {
+						if (contatos[i] == null) {
+							contatos[i] = t;
+							index += 1;
+							break;
+						}
+					}
+				}
+			}.start();
+		} catch (Exception e) {
+			System.out.println("Erro ao iniciar a thread de adição de contatos");
+		}
 	}
 
-	public void remove(int id) {	
+	public void remove(int id) {
 		new Thread() {
-			public void run() { 
-				
-				System.out.println(contatos[0]);
-				
-				int a = Arrays.binarySearch(contatos, id);
-								
-				System.out.println(a);
-				
-//				contatos[a] = null;
+			public void run() {
+				for (int i = 0; i < contatos.length; i++) {
+					Contato temp = (Contato) contatos[i];
+					if (temp.getId() == id) {
+						contatos[i] = null;
+						index += 1;
+						break;
+					}
+				}
 			}
 		}.start();
 	}
 
-	public T[] getAgenda() {
+	@SuppressWarnings("unchecked")
+	public void setContatos(Object[] contatos) {
+		this.contatos = (T[]) contatos;
+	}
+
+	public T[] getContatos() {
 		return contatos;
 	}
 
-	public T getItem() {
-		return contatos[0];
+	public int length() {
+		return contatos.length;
 	}
 
-	public void run() {
-
+	public static int getIndex() {
+		return index;
 	}
 
+	public static Integer getIdsContato() {
+		return idsContato;
+	}
+
+	public static void setIdsContato(Integer idsContato) {
+		Agenda.idsContato = idsContato;
+	}
+
+	public void toNull() {
+		for (int i = 0; i < contatos.length; i++)
+			contatos[i] = null;
+	}
 }

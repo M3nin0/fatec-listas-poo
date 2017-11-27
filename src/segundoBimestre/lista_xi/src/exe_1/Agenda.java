@@ -13,7 +13,8 @@ public class Agenda<T> implements Serializable {
 	}
 
 	public void add(T objeto) {
-
+		
+		// Este if serve apenas para mostrar para o usuário a mensagem
 		if (objetos.contains(objeto)) {
 			System.out.println("Usuário já está na agenda");
 		} else {

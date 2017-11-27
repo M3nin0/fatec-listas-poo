@@ -44,7 +44,6 @@ public class Contato implements Comparable<Contato>, Serializable{
 
 		if (contato.nome.toLowerCase().equals(this.nome.toLowerCase()))
 			return true;
-
 		return false;
 	}
 

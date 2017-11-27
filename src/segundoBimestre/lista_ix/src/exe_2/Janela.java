@@ -17,7 +17,7 @@ public class Janela extends JFrame implements ActionListener {
 	private JTextField num_1, num_2;
 
 	public Janela() {
-		setTitle("Cálculadora legal");
+		setTitle("Calculadora legal");
 
 		setSize(new Dimension(500, 80));
 		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 7, 7));
@@ -58,17 +58,12 @@ public class Janela extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSoma)
-			resultado.setText(
-					"Resultado: " + (Double.parseDouble(num_1.getText()) + Double.parseDouble(num_2.getText())));
+			resultado.setText("Resultado: " + Calculadora.soma(Double.parseDouble(num_1.getText()), Double.parseDouble(num_2.getText())));
 		if (e.getSource() == btnSub)
-			resultado.setText(
-					"Resultado: " + (Double.parseDouble(num_1.getText()) - Double.parseDouble(num_2.getText())));
+			resultado.setText("Resultado: " + Calculadora.subtrai(Double.parseDouble(num_1.getText()), Double.parseDouble(num_2.getText())));
 		if (e.getSource() == btnDiv)
-			resultado.setText(
-					"Resultado: " + (Double.parseDouble(num_1.getText()) / Double.parseDouble(num_2.getText())));
-		if (e.getSource() == btnMult)
-			resultado.setText(
-					"Resultado: " + (Double.parseDouble(num_1.getText()) * Double.parseDouble(num_2.getText())));
+			resultado.setText("Resultado: " + Calculadora.divide(Double.parseDouble(num_1.getText()), Double.parseDouble(num_2.getText())));
+		if (e.getSource() == btnMult)		
+			resultado.setText("Resultado: " + Calculadora.multiple(Double.parseDouble(num_1.getText()), Double.parseDouble(num_2.getText())));
 	}
-
 }
